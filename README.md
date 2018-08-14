@@ -1,1 +1,1 @@
-# django-project
+# My first django web app
