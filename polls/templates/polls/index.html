@@ -1,0 +1,18 @@
+{% if lql %}
+    <ul>
+    {% for question in lql %}
+        <!--
+            Mauvaise pratique : url en dur dans le template  ('/polls/') :
+            <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> 
+        -->
+        <!-- 
+            Bonne pratique : La balise %url% contient 
+            le nom de l'url attendu tel que défini dans urls.py 
+            précédé du domaine de nom de l'application (polls en l'occurence) :
+        -->
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
