@@ -2,11 +2,12 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
+from accounts.models import User
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
-    publisher = models.ForeignKey()
+    publisher = models.ForeignKey(User, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['-pub_date']
