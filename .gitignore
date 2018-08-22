@@ -1,4 +1,5 @@
 # Project specfic excludes
+*.pyc
 
 # Default Python and Django excludes
 *.pyc
