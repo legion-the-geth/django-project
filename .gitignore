@@ -1,0 +1,10 @@
+# Project specfic excludes
+
+# Default Python and Django excludes
+*.pyc
+doc/*
+*.7z
+*.rar
+*.tar
+*.zip
+*.dmg

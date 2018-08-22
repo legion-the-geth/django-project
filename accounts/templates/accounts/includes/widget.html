@@ -1,0 +1,10 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'accounts/styles.css' %}">
+
+<div class="account_widget">
+    {% if current_user %}
+        <p class="current_user"> Welcome, {{current_user.login}}</p>
+    {% else %}
+        <p>You are not logged in.</p>
+    {% endif %}
+</div>

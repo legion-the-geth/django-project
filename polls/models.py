@@ -7,7 +7,7 @@ from accounts.models import User
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
-    publisher = models.ForeignKey(User, on_delete=models.SET_NULL)
+    publisher = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ['-pub_date']

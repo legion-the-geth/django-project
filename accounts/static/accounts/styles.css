@@ -1,0 +1,7 @@
+div.account_widget{
+    float: right;
+}
+
+.account_widget p.current_user{
+    font-size: 8px;
+}
