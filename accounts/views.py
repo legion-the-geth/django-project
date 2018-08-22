@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.core import exceptions
 from accounts.models import User
 
 def widget(request):
@@ -11,11 +12,13 @@ def widget(request):
     return render(request, 'accounts/widget.html', {'current_user': c_u})
 
 def login(request):
-    user = User.objects.get(login=request.POST['login'])
-    if user.password == request.POST['password']:
-        request.session['current_user'] = user
-        return render(request, 'polls:index', {
-            'err_login': "Wrong login credentials",
-        })
+    try:
+        user = User.objects.get(
+            login=request.POST['login'],
+            password=request.POST['password'],
+        )
+    except User.DoesNotExist:
+        return HttpResponseRedirect(reverse('polls:index') + "?wrong_login")
     else:
+        request.session['current_user'] = user
         return HttpResponseRedirect(reverse('polls:index'))

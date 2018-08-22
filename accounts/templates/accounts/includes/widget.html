@@ -3,8 +3,16 @@
 
 <div class="account_widget">
     {% if current_user %}
-        <p class="current_user"> Welcome, {{current_user.login}}</p>
+        <span class="current_user"> Welcome, {{current_user.login}}</span>
     {% else %}
-        <p>You are not logged in.</p>
+        {% if request.GET.wrong_login %}<p class="err">Wrong credentials!</p>{% endif %}
+        <br />
+        {{request.GET.wrong_login}}
+        <form action="{% url 'accounts:login' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="login" id="widget_login" value="" placeholder="login">
+            <input type="password" name="password" id="widget_pw" value="" placeholder="password">
+            <input type="submit" value="Go">
+        </form>
     {% endif %}
 </div>

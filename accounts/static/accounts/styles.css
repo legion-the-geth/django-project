@@ -1,7 +1,13 @@
-div.account_widget{
-    float: right;
+div.account_widget{float: right;}
+.account_widget {font-size: 10px;}
+.account_widget form input[type="text"],input[type="password"],input[type="submit"]{
+    font-size: 10px;
+    height: 14px;
+    width: 50px;
+    margin: 0px 3px;
+    padding: 1px;
 }
-
-.account_widget p.current_user{
-    font-size: 8px;
+p.err{
+    color: darkred;
+    font-weight: bold;
 }
