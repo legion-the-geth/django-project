@@ -25,7 +25,7 @@ class Group(models.Model):
     date_created = models.DateTimeField('created at', auto_now=True)
     category = models.CharField(
         max_length=5,
-        choices=[(tag, tag.value) for tag in GroupCat]
+        choices=[(tag.name, tag.value) for tag in GroupCat]
     )
 
     def __str__(self):
@@ -52,3 +52,14 @@ class User(models.Model):
     def clean(self):
         if self.age is not None and self.age < 12:
             raise ValidationError(_('You must be at least 12yo to register on this site.'))
+
+    @staticmethod
+    def get_current(session):
+        """
+        Retourne l'utilisateur courant dont l'id est sotcké en session
+        Si pas d'utilisateur trouvé, retourne None
+        """
+        if 'current_user_id' in session and session['current_user_id'] > 0:
+            return User.objects.get(pk=session['current_user_id'])
+        else:
+            return None

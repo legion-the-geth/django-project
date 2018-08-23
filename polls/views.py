@@ -4,18 +4,16 @@ from django.urls import reverse
 from django.db.models import F
 from django.views import generic
 from django.utils import timezone
+# from accounts import views
 
 from .models import Question, Choice
+from accounts.models import User
 
-class IndexView(generic.ListView):
-    template_name = 'polls/index.html'
-    context_object_name = 'lql'
+def index(request):
+    questions = Question.get_last_x_questions(5)
+    current_user = User.get_current(request.session)
 
-    def get_queryset(self):
-        # Return the last five published (not in the future) questions.
-        return Question.objects.filter(
-            pub_date__lte=timezone.now()
-        ).order_by('-pub_date')[:5]
+    return render(request, 'polls/index.html', {'lql':questions, 'current_user':current_user,})
 
 class DetailView(generic.DetailView):
     model = Question

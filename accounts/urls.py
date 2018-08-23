@@ -7,4 +7,6 @@ urlpatterns = [
     path('widget/', views.widget, name='widget'),
     # ex: /accounts/login/
     path('login/', views.login, name='login'),
+    # ex: /accounts/logout/
+    path('logout/', views.logout, name='logout'),
 ]

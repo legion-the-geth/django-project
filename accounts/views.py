@@ -5,11 +5,7 @@ from django.core import exceptions
 from accounts.models import User
 
 def widget(request):
-    if 'current_user' in request.session:
-        c_u = request.session['current_user']
-    else:
-        c_u = None
-    return render(request, 'accounts/widget.html', {'current_user': c_u})
+    return render(request, 'accounts/widget.html')
 
 def login(request):
     try:
@@ -18,7 +14,12 @@ def login(request):
             password=request.POST['password'],
         )
     except User.DoesNotExist:
-        return HttpResponseRedirect(reverse('polls:index') + "?wrong_login")
+        request.session['current_user_id'] = 0
+        return HttpResponseRedirect(reverse('polls:index') + "?wrong_login=1")
     else:
-        request.session['current_user'] = user
+        request.session['current_user_id'] = user.id
         return HttpResponseRedirect(reverse('polls:index'))
+
+def logout(request):
+    del request.session['current_user_id']
+    return HttpResponseRedirect(reverse('polls:index'))
