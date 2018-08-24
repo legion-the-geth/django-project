@@ -1,3 +1,4 @@
 /* body{background: white url(images/background.jpg) no-repeat} */
 li a{color: darkblue;}
 h1{color: darkorange;}
+h2{margin: 0;padding: 0;}

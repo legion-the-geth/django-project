@@ -6,7 +6,7 @@ from accounts.models import User
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField('published', auto_now=True)
     publisher = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     class Meta:

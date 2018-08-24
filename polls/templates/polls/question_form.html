@@ -1,0 +1,12 @@
+{% extends "polls/base.html" %}
+
+{% block title %}Last 5 published polls{% endblock %}
+
+{% block content %}
+{% if request.session.current_user_id > 0 %}<span>You are logged in, {{ request.session.current_user_id }}.</span>{% endif %}
+<form role="form" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+{% endblock %}

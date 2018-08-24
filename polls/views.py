@@ -6,8 +6,8 @@ from django.views import generic
 from django.utils import timezone
 # from accounts import views
 
-from .models import Question, Choice
 from accounts.models import User
+from .models import Question, Choice
 
 def index(request):
     questions = Question.get_last_x_questions(5)
@@ -30,6 +30,16 @@ class ResultsView(generic.DetailView):
     def get_queryset(self):
         # Excludes any questions that aren't published yet.
         return Question.objects.filter(pub_date__lte=timezone.now())
+
+class CreateView(generic.CreateView):
+    model = Question
+    fields = ('question_text',)
+    success_url = '../'
+
+    def form_valid(self, form):
+        current_user = User.get_current(self.request.session)
+        form.instance.publisher = current_user
+        return super(CreateView, self).form_valid(form)
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id, pub_date__lte=timezone.now())

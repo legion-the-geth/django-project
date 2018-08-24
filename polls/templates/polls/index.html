@@ -1,8 +1,9 @@
 {% extends "polls/base.html" %}
 
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'polls/styles.css' %}">
-
+{% block headlinks %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/styles.css' %}">
+{% endblock %}
 {% block title %}Last 5 published polls{% endblock %}
 
 {% block accountwidget %}
@@ -17,6 +18,9 @@
         <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
         {% endfor %}
     </ul>
+
+    <a href="{% url 'polls:new' %}">Create new poll</a>
+    
     {% else %}
     <p>No polls are available.</p>
     {% endif %}
